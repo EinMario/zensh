@@ -36,6 +36,8 @@ zinit snippet OMZP::tmux
 zinit snippet OMZP::vscode
 zinit snippet OMZP::command-not-found
 
+fpath+=~/.zsh/completions
+
 # Load completions
 autoload -Uz compinit && compinit
 
@@ -49,6 +51,9 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[3~' delete-char
 
 # History
 HISTSIZE=5000
@@ -71,14 +76,18 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 #zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-alias ls='ls --color'
-alias ll='ls -als --color'
+alias ls='ls -lh --color'
+alias ll='ls -alsh --color'
 alias vim='nvim'
 alias c='clear'
+alias mkd='mkdir -p'
+alias reboot='sudo reboot'
+alias shutdown='sudo shutdown now'
+alias cdev='cd ~/dev'
+alias cnsync='cd ~/nosync'
 # Repeat last command with sudo
 alias fuck='sudo $(fc -ln -1)'
 
 # Shell integrations
 eval "$(fzf --zsh)"
 #eval "$(zoxide init --cmd cd zsh)"
-
