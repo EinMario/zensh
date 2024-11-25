@@ -8,3 +8,6 @@ maintain momentum when working inside of the terminal.
 
 # How to
 Einfach init ausführen
+
+
+To customize prompt, run `p10k configure`

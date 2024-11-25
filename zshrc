@@ -86,6 +86,10 @@ alias reboot='sudo reboot'
 alias shutdown='sudo shutdown now'
 alias cdev='cd ~/dev'
 alias cnsync='cd ~/nosync'
+alias untar='tar -xvf'
+alias targz='tar -czvf'
+alias zipf='zip -r'
+alias unzipf='unzip -d'
 # Repeat last command with sudo
 alias fuck='sudo $(fc -ln -1)'
 
