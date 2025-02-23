@@ -1,4 +1,35 @@
 
+# Liste der benötigten Programme
+required_programs=("neofetch" "git" "curl" "vim" "docker" "zsh" "fzf" "tmux")
+
+missing_programs=()
+for program in "${required_programs[@]}"; do
+  if ! command -v "$program" >/dev/null 2>&1; then
+    missing_programs+=("$program")
+  fi
+done
+
+if [ ${#missing_programs[@]} -gt 0 ]; then
+  echo "Following programs are not installed: ${missing_programs[*]}"
+
+  if command -v apt >/dev/null 2>&1; then
+    sudo apt update && sudo apt install -y "${missing_programs[@]}"
+  elif command -v pacman >/dev/null 2>&1; then
+    sudo pacman -Sy --noconfirm "${missing_programs[@]}"
+  elif command -v dnf >/dev/null 2>&1; then
+    sudo dnf install -y "${missing_programs[@]}"
+  elif command -v zypper >/dev/null 2>&1; then
+    sudo zypper install -y "${missing_programs[@]}"
+  else
+    echo "No suitable package manager found."
+  fi
+fi
+
+# Cache dir for completions
+if [ ! -d "~/.cache/zinit/completions" ]; then
+    mkdir -p "~/.cache/zinit/completions"
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -98,33 +129,3 @@ eval "$(fzf --zsh)"
 #eval "$(zoxide init --cmd cd zsh)"
 
 
-# Liste der benötigten Programme
-required_programs=("neofetch" "git" "curl" "vim" "docker" "zsh" "fzf" "tmux")
-
-check_and_install_programs() {
-  missing_programs=()
-
-  for program in "${required_programs[@]}"; do
-    if ! command -v "$program" >/dev/null 2>&1; then
-      missing_programs+=("$program")
-    fi
-  done
-
-  if [ ${#missing_programs[@]} -gt 0 ]; then
-    echo "Following programs are not installed: ${missing_programs[*]}"
-
-    if command -v apt >/dev/null 2>&1; then
-      sudo apt update && sudo apt install -y "${missing_programs[@]}"
-    elif command -v pacman >/dev/null 2>&1; then
-      sudo pacman -Sy --noconfirm "${missing_programs[@]}"
-    elif command -v dnf >/dev/null 2>&1; then
-      sudo dnf install -y "${missing_programs[@]}"
-    elif command -v zypper >/dev/null 2>&1; then
-      sudo zypper install -y "${missing_programs[@]}"
-    else
-      echo "No suitable package manager found."
-    fi
-  fi
-}
-
-check_and_install_programs
