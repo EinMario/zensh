@@ -90,13 +90,21 @@ alias untar='tar -xvf'
 alias targz='tar -czvf'
 alias zipf='zip -r'
 alias unzipf='unzip -d'
+alias cp="cp -i"
+alias top="bpytop"
+alias bambu="~/dev/BambuStudio/install_dir/bin/bambu-studio &"
+
 # Repeat last command with sudo
 alias fuck='sudo $(fc -ln -1)'
+
+. "$HOME/.cargo/env"
+
 
 # Shell integrations
 eval "$(fzf --zsh)"
 #eval "$(zoxide init --cmd cd zsh)"
 
+############################################################################
 # Liste der benötigten Programme
 required_programs=("neofetch" "git" "curl" "vim" "docker" "zsh" "fzf" "tmux")
 
@@ -125,5 +133,28 @@ check_and_install_programs() {
     fi
   fi
 }
-
 check_and_install_programs
+##############################################################################
+
+##############################################################################
+#HOME_ROUTER_IP="192.168.1.1"
+#
+#if ping -c 1 -W 1 $HOME_ROUTER_IP > /dev/null 2>&1; then
+#    echo "Heimnetz erkannt – Twingate wird gestoppt..."
+#    #systemctl --user stop twingate.service
+#    #twingate stop
+#else
+#    echo "Nicht im Heimnetz – Twingate wird gestartet..."
+#    #systemctl --user start twingate.service
+#    #twingate start
+#fi
+##############################################################################
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export ANDROID_HOME=/home/mario/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:/usr/local/go/bin
